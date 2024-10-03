@@ -6,25 +6,20 @@ namespace TravelRecommendation.Server.Controllers
     [Route("[controller]")]
     public class HotelController : ControllerBase
     {
-        private static readonly string[] Names = new[]
-        {
-            "Siesta Apart & Hotel", "Eden Roc Hotel", "Ohla Eixample"
-        };
+        private readonly HotelService _hotelService;
         private readonly ILogger<HotelController> _logger;
 
-        public HotelController(ILogger<HotelController> logger)
+        public HotelController(ILogger<HotelController> logger, HotelService hotelService)
         {
+            _hotelService = hotelService;
             _logger = logger;
         }
 
         [HttpGet(Name = "GetRecommenedHotels")]
-        public IEnumerable<Hotel> Get()
+        public async Task<IActionResult> Get()
         {
-            return Enumerable.Range(0, 3).Select(index => new Hotel
-            {
-                Name = Names[index]
-            })
-            .ToArray();
+            var hotels = await _hotelService.GetHotelsAsync(3);
+            return Ok(hotels);
         }
     }
 }
