@@ -1,7 +1,11 @@
-# TODO
+## Done
+
+- Styling with Tailwind
+
+## TODO
 
 - Connect to model with API
-- Styling with Tailwind
+
 - SSR
 - Signup and Preference Setup
 - Recommendation Page
