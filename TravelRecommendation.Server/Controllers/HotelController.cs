@@ -15,7 +15,7 @@ namespace TravelRecommendation.Server.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetRecommenedHotels")]
+        [HttpPost(Name = "GetRecommenedHotels")]
         public async Task<IActionResult> Get()
         {
             var hotels = await _hotelService.GetHotelsAsync(3);

@@ -3,7 +3,7 @@
 GET {{TravelRecommendation.Server_HostAddress}}/weatherforecast/
 Accept: application/json
 ###
-GET {{TravelRecommendation.Server_HostAddress}}/hotel/
+POST {{TravelRecommendation.Server_HostAddress}}/hotel/
 Accept: application/json
 
 
