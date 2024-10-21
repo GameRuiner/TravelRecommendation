@@ -16,6 +16,8 @@ namespace TravelRecommendation.Server
         public string? Brand { get; set; }
         [BsonElement("description")]
         public required string Description { get; set; }
+        [BsonElement("Photos")]
+        public List<Photos>? Photos { get; set; }
 
     }
 }

@@ -20,7 +20,7 @@ function PromptPage() {
     }
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="mt-8 flex flex-col items-center">
             <p className="bold text-5xl">Where you want to go?</p>
             <form className="prompt-container mt-8 w-full" onSubmit={(e) => submitPrompt(e)}>
                 <input className="w-full rounded-full p-3 pl-6 pr-12" name="prompt" />
