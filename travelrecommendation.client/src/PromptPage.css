@@ -5,6 +5,21 @@
     .prompt-container button {
         position: absolute;
         right: 0.5rem;
-        top: 0.5rem; 
-        background-color: #ffffffde
+        background-color: #ffffffde; 
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+.hotel-card {
+    width: 32rem;
+    text-align: left;
+    border: 0.1rem #cecece solid;
+    border-radius: 1.6rem;
+}
+
+    .hotel-card .hotel-image {
+        height: 21.5rem;
+        width: 100%;
+        object-fit: cover;
+        border-radius: inherit;
     }
