@@ -4,11 +4,13 @@
 
     .prompt-container button {
         position: absolute;
-        right: 0.5rem;
+        right: 1rem;
         background-color: #ffffffde; 
         top: 50%;
         transform: translateY(-50%);
     }
+
+
 
 .hotel-card {
     width: 32rem;
@@ -23,3 +25,12 @@
         object-fit: cover;
         border-radius: inherit;
     }
+
+@media (prefers-color-scheme: light) {
+    .prompt-container button {
+        background: #213547de;
+    }
+        .prompt-container button .send-image path {
+            stroke: #ffffff;
+        }
+}
