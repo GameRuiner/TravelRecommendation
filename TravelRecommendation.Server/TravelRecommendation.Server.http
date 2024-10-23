@@ -1,7 +1,5 @@
 @TravelRecommendation.Server_HostAddress = http://localhost:5240
 
-GET {{TravelRecommendation.Server_HostAddress}}/weatherforecast/
-Accept: application/json
 ###
 POST {{TravelRecommendation.Server_HostAddress}}/hotel/
 Accept: application/json

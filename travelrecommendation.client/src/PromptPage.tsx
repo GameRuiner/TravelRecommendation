@@ -2,27 +2,16 @@
 import { FormEvent, useState } from 'react';
 import './App.css';
 import './PromptPage.css'
-interface Ancestor {
-    level: string;
-    name: string;
-}
 
 interface Hotel {
     name: string;
-    locationId: string;
-    ancestors: Ancestor[];
-    photos: {
-        data: {
-            album: string;
-            images: {
-                large: {
-                    height: number;
-                    width: number;
-                    url: string;
-                }
-            }
-        }[]
-    }[];
+    id: string;
+    location: string;
+    image: {
+        height: number;
+        width: number;
+        url: string;
+    }
 }
 
 function PromptPage() {
@@ -35,40 +24,6 @@ function PromptPage() {
         };
         const prompt = target.prompt.value;
         populateHotelsData(prompt)
-    }
-
-    const getHotelImage = (hotel: Hotel) => {
-        const imageObj = hotel.photos[0].data.
-            filter(image => image.album === "Hotel & Grounds")[0];
-        return <img src={imageObj.images.large.url} className="hotel-image"></img>
-    }
-
-    const getHotelLocation = (ancestors: Ancestor[]) => {
-        let country = '';
-        let region = '';
-        let city = '';
-        ancestors.forEach((ancestor: Ancestor) => {
-            switch (ancestor.level) {
-                case 'City':
-                    city = ancestor.name
-                    break;
-                case 'Municipality':
-                    city = ancestor.name
-                    break;
-                case 'Island':
-                    city = ancestor.name
-                    break;
-                case 'Region':
-                    region = ancestor.name
-                    break;
-                case 'Country':
-                    country = ancestor.name;
-                    break;
-            }
-        })
-        const ancestorsArray = [country, region, city].filter((ancestor: string) => !!ancestor)
-        return ancestorsArray.join(' / ')
-     
     }
 
     return (
@@ -88,10 +43,10 @@ function PromptPage() {
                 <h2 className="bold mt-8 text-3xl">Check this out</h2>
                 <ul className="mt-6 flex flex-wrap justify-center gap-10">
                     {hotels.map(hotel =>
-                        <li key={hotel.locationId} className="hotel-card">
-                            {getHotelImage(hotel)}
+                        <li key={hotel.id} className="hotel-card">
+                            <img src={hotel.image.url} className="hotel-image"></img>
                             <div className="p-6">
-                                <p className="text-lg">{getHotelLocation(hotel.ancestors)}</p>
+                                <p className="text-lg">{hotel.location}</p>
                                 <p className="bold mt-3 text-4xl">{hotel.name}</p>
                             </div>
                         </li>
