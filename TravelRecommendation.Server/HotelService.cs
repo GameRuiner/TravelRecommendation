@@ -46,6 +46,7 @@ namespace TravelRecommendation.Server
                 Name = hotel.Name,
                 Location = hotel.GetHotelLocation(),
                 Image = hotel.GetHotelImage(),
+                HotelClass = hotel.HotelClass
             }).ToList();
             return projectedHotelsList;
         }
@@ -62,6 +63,8 @@ namespace TravelRecommendation.Server
         public required string Name { get; set; }
         public required string Location { get; set; }
         public Image? Image { get; set; }
+
+        public float? HotelClass { get; set; }
     }
 
 

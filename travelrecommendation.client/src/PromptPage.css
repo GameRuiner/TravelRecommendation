@@ -26,6 +26,10 @@
         border-radius: inherit;
     }
 
+.hotel-class path {
+    fill: #ffffff;
+}
+
 @media (prefers-color-scheme: light) {
     .prompt-container button {
         background: #213547de;
@@ -33,4 +37,7 @@
         .prompt-container button .send-image path {
             stroke: #ffffff;
         }
+    .hotel-class path {
+        fill: #213547de;
+    }
 }

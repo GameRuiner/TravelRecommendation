@@ -20,6 +20,8 @@ namespace TravelRecommendation.Server
         public required string Description { get; set; }
         [BsonElement("Photos")]
         public List<Photos>? Photos { get; set; }
+        [BsonElement("hotel_class")]
+        public float? HotelClass { get; set; }
 
         public string GetHotelLocation()
         {
