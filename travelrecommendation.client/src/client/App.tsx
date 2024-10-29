@@ -4,7 +4,6 @@ import PromptPage from './PromptPage';
 
 
 function App() {
-
     return <PromptPage></PromptPage>;
 }
 
