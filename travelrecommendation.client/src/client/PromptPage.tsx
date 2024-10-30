@@ -2,6 +2,7 @@
 import { FormEvent, useState } from 'react';
 import './App.css';
 import './PromptPage.css'
+import thumb from '../assets/thumbs-up.svg';
 
 interface Hotel {
     name: string;
@@ -52,6 +53,14 @@ function PromptPage() {
                     {hotels.map(hotel =>
                         <li key={hotel.id} className="hotel-card">
                             <img src={hotel.image.url} className="hotel-image"></img>
+                            <div className="thumbs-container flex gap-3">
+                                <div className="thumb-container">
+                                    <img src={thumb} width={18} height={18} className="thumb-button"></img>
+                                </div>
+                                <div className="thumb-container">
+                                    <img src={thumb} width={18} height={18} className="thumb-button thumb-down-button"></img>
+                                </div>
+                            </div>
                             <div className="p-6">
                                 <p className="text-lg">{hotel.location}</p>
                                 <p className="bold mt-3 text-4xl">{hotel.name}</p>

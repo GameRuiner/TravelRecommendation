@@ -17,6 +17,7 @@
     text-align: left;
     border: 0.1rem #cecece solid;
     border-radius: 1.6rem;
+    position: relative;
 }
 
     .hotel-card .hotel-image {
@@ -29,6 +30,31 @@
 .hotel-class path {
     fill: #ffffff;
 }
+
+.thumbs-container {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+}
+
+.thumb-container {
+    padding: 0.4rem;
+    background: #24242466;
+    border-radius: 0.8rem;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+    .thumb-container:hover {
+        background: #86868666;
+    }
+
+.thumb-down-button {
+   rotate: 180deg;
+}
+
+
+
 
 @media (prefers-color-scheme: light) {
     .prompt-container button {
