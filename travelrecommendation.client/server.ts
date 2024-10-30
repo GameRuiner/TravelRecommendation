@@ -90,13 +90,15 @@ async function createServer(isProd = process.env.NODE_ENV === "production") {
 
             // 6. Send the rendered HTML back.
             res.status(200).set({ "Content-Type": "text/html" }).end(html);
-        } catch (e: any) {
-            !isProd && vite.ssrFixStacktrace(e);
-            console.log(e.stack);
-            // If an error is caught, let Vite fix the stack trace so it maps back to
-            // your actual source code.
-            vite.ssrFixStacktrace(e);
-            next(e);
+        } catch (e: unknown) {
+            if (!isProd && vite.ssrFixStacktrace(e as Error)) {
+                console.log((e as Error).stack);
+                // If an error is caught, let Vite fix the stack trace so it maps back to
+                // your actual source code.
+                vite.ssrFixStacktrace(e as Error);
+                next(e);
+            }
+
         }
     });
     const port = process.env.PORT || 7456;
