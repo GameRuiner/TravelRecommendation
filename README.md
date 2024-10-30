@@ -1,14 +1,13 @@
 ## Done
 
 - Styling with Tailwind
+- SSR
+- Recommendation Page
 
 ## TODO
 
 - Connect to model with API
-
-- SSR
 - Signup and Preference Setup
-- Recommendation Page
 - Search and Filtering
 - Collect user info
 	- Preferred destinations (cities, countries)
