@@ -45,8 +45,8 @@
     cursor: pointer;
 }
 
-    .thumb-container:hover {
-        background: #86868666;
+    .thumb-container:hover, .thumb-container.selected {
+        background: #868686AA;
     }
 
 .thumb-down-button {
