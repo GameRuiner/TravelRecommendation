@@ -3,6 +3,7 @@
 - Styling with Tailwind
 - SSR
 - Recommendation Page
+- Collect feedback
 
 ## TODO
 
@@ -16,4 +17,4 @@
 	- Previous travel history.
 	- Preferred travel season (summer, winter, etc.).
 	- Accommodation type (hotel, hostel, etc.).
-- Collect feedback
+
