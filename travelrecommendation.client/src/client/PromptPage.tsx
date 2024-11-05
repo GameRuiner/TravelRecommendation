@@ -19,7 +19,7 @@ function PromptPage() {
             },
             body: sendData,
         };
-        const response = await fetch('hotel', requestOptions);
+        const response = await fetch('hotel/get', requestOptions);
         const data = await response.json();
         setHotels(data);
     }
@@ -42,7 +42,7 @@ function PromptPage() {
             },
             body: sendData,
         };
-        fetch('rate', requestOptions);
+        fetch('hotel/rate', requestOptions);
     }
 
     return (

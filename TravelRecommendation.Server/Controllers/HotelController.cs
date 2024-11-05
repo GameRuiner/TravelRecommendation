@@ -2,6 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TravelRecommendation.Server.Controllers
 {
+    public class RateHotelRequest
+    {
+        public required string HotelId { get; set; }
+        public required string Prompt { get; set; }
+        public required bool Rating { get; set; }
+    }
+
     [ApiController]
     [Route("[controller]")]
     public class HotelController : ControllerBase
@@ -15,11 +22,22 @@ namespace TravelRecommendation.Server.Controllers
             _logger = logger;
         }
 
-        [HttpPost(Name = "GetRecommenedHotels")]
+        [HttpPost("get", Name = "GetRecommenedHotels")]
         public async Task<IActionResult> Get()
         {
             var hotels = await _hotelService.GetHotelsAsync(3);
             return Ok(hotels);
+        }
+
+        [HttpPost("rate", Name = "RateRecommenedHotel")]
+        public async Task<IActionResult> Rate([FromBody] RateHotelRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            await _hotelService.RateHotelAsync(request.HotelId, request.Rating, request.Prompt);
+            return Ok("Rating submitted successfully");
         }
     }
 }

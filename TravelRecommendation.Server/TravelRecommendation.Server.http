@@ -1,7 +1,10 @@
 @TravelRecommendation.Server_HostAddress = http://localhost:5240
 
 ###
-POST {{TravelRecommendation.Server_HostAddress}}/hotel/
+POST {{TravelRecommendation.Server_HostAddress}}/hotel/get
+Accept: application/json
+###
+POST {{TravelRecommendation.Server_HostAddress}}/hotel/rate
 Accept: application/json
 
 
