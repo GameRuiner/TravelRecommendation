@@ -4,10 +4,10 @@
 - SSR
 - Recommendation Page
 - Collect feedback
+- Connect to model with API
 
 ## TODO
 
-- Connect to model with API
 - Signup and Preference Setup
 - Search and Filtering
 - Collect user info
