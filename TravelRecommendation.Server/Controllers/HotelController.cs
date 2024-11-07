@@ -9,6 +9,11 @@ namespace TravelRecommendation.Server.Controllers
         public required bool Rating { get; set; }
     }
 
+    public class GetHotelRequest
+    {
+        public required string Prompt { get; set; }
+    }
+
     [ApiController]
     [Route("[controller]")]
     public class HotelController : ControllerBase
@@ -23,9 +28,13 @@ namespace TravelRecommendation.Server.Controllers
         }
 
         [HttpPost("get", Name = "GetRecommenedHotels")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromBody] GetHotelRequest request)
         {
-            var hotels = await _hotelService.GetHotelsAsync(3);
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            var hotels = await _hotelService.FetchRecommendedHotelsWithPhotos(request.Prompt, 3);
             return Ok(hotels);
         }
 

@@ -52,6 +52,7 @@ app.Run();
 
 void StartMongoDB()
 {
+    Debug.WriteLine("Starting MongoDB...");
     var processStartInfo = new ProcessStartInfo
     {
         FileName = "cmd.exe",

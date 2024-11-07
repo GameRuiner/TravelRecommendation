@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using System.Text.Json;
+using System.Text;
+using System.Text.Json.Serialization;
 
 
 namespace TravelRecommendation.Server
@@ -19,6 +22,16 @@ namespace TravelRecommendation.Server
         public bool Rating { get; set; }
         public DateTime CreatedAt { get; set; }
     }
+    public class RecommendationRequest
+    {
+        [JsonPropertyName("prompt")]
+        public required string Prompt { get; set; }
+    }
+    public class HotelRecommendation
+    {
+        [JsonPropertyName("locationId")]
+        public required string LocationId { get; set; }
+    }
     public class HotelService
     {
         private readonly IMongoCollection<Hotel> _hotelsCollection;
@@ -35,11 +48,45 @@ namespace TravelRecommendation.Server
             _promptsCollection = database.GetCollection<Prompt>(mongoDBSettings.Value.PromptsCollection);
         }
 
-
-        public async Task<List<HotelDto>> GetHotelsAsync(int limit)
+        public async Task<List<HotelDto>> FetchRecommendedHotelsWithPhotos(string prompt, int limit)
         {
+            var recommendedHotels = await GetRecommendedHotels(prompt);
+            var hotels = await GetHotelDetailsWithPhotos(recommendedHotels, limit);
+            return hotels;
+        }
+
+        public async Task<List<HotelRecommendation>> GetRecommendedHotels(string prompt)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://127.0.0.1:8000");
+                var request = new RecommendationRequest { Prompt = prompt };
+                var json = JsonSerializer.Serialize(request);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("/recommendations", content);
+                response.EnsureSuccessStatusCode();
+                var responseBody = await response.Content.ReadAsStringAsync();
+                var recommendations = JsonSerializer.Deserialize<Dictionary<string, List<HotelRecommendation>>>(responseBody);
+                if (recommendations == null) return [];
+                return recommendations["recommendations"];
+            }
+        }
+
+
+        public async Task<List<HotelDto>> GetHotelDetailsWithPhotos(List<HotelRecommendation> hotels, int limit)
+        {
+            List<string> hotelIds = new List<string>();
+            foreach (var hotel in hotels)
+            {
+                hotelIds.Add(hotel.LocationId);
+            }
+            var filter = new BsonDocument
+            {
+                {"$match", new BsonDocument { { "location_id", new BsonDocument { { "$in", new BsonArray(hotelIds) } } } } }
+            };
             var pipeline = new[]
             {
+                    filter,
                     new BsonDocument
                     {
                         { "$lookup", new BsonDocument
@@ -69,10 +116,6 @@ namespace TravelRecommendation.Server
             return projectedHotelsList;
         }
 
-        public async Task<Hotel> GetHotelAsync(string id)
-        {
-            return await _hotelsCollection.Find(hotel => hotel.LocationId == id).FirstOrDefaultAsync();
-        }
 
         public async Task RateHotelAsync(string hotelId, bool rating, string prompt)
         {
@@ -110,7 +153,6 @@ namespace TravelRecommendation.Server
         public required string Name { get; set; }
         public required string Location { get; set; }
         public Image? Image { get; set; }
-
         public float? HotelClass { get; set; }
     }
 
