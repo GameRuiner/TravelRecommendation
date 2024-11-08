@@ -19,6 +19,9 @@
     border-radius: 1.6rem;
     position: relative;
 }
+    .hotel-card .image-container {
+        min-height: 3rem;
+    }
 
     .hotel-card .hotel-image {
         height: 21.5rem;

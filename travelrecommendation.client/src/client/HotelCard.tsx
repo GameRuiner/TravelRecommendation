@@ -5,7 +5,7 @@ export interface Hotel {
     name: string;
     id: string;
     location: string;
-    image: {
+    image?: {
         height: number;
         width: number;
         url: string;
@@ -35,8 +35,10 @@ function HotelCard({ hotel, sendRating }: IHotelCard) {
     }
 
     return (
-    <div className="hotel-card">
-        <img src={hotel.image.url} className="hotel-image"></img>
+        <div className="hotel-card">
+            <div className="image-container">
+                {hotel.image && <img src={hotel.image.url} className="hotel-image"></img>}
+            </div>
             <div className="thumbs-container flex gap-3">
                 {[null, true].includes(approved) && <div className={`thumb-container ${approved === true ? 'selected' : ''}`} onClick={() => approve(true, hotel.id)}>
                     <img src={thumb} width={18} height={18} className="thumb-button"></img>
@@ -48,9 +50,9 @@ function HotelCard({ hotel, sendRating }: IHotelCard) {
         <div className="p-6">
             <p className="text-lg">{hotel.location}</p>
             <p className="bold mt-3 text-4xl">{hotel.name}</p>
-            <ul className="hotel-class flex gap-2">
-                {[...Array(hotel.hotelClass)].map((_, i) => <span key={i}>{star}</span>)}
-            </ul>
+                {hotel.hotelClass && <ul className="hotel-class flex gap-2">
+                    {[...Array(hotel.hotelClass)].map((_, i) => <span key={i}>{star}</span>)}
+                </ul>}
         </div>
     </div>)
 }
