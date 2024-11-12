@@ -77,6 +77,9 @@ void StartMongoDB()
             }
 
             process.WaitForExit();
+        } else
+        {
+            Debug.WriteLine("Process is null");
         }
     }
 }

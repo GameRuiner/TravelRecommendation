@@ -55,7 +55,11 @@ namespace TravelRecommendation.Server
         {
             var imageObj = Photos?.FirstOrDefault()?.Data?
                 .FirstOrDefault(image => image.Album == "Hotel & Grounds");
-
+            if (imageObj == null)
+            {
+                imageObj = Photos?.FirstOrDefault()?.Data?
+                    .FirstOrDefault(image => image.Album == "Other");
+            }
             return imageObj?.Images?.Large;
         }
     }
