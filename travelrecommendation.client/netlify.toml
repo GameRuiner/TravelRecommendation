@@ -1,3 +1,6 @@
+[functions]
+  node_bundler = "esbuild"
+
 [build]
   # The main build command for Netlify
   command = "rimraf dist && tsc -p tsconfig.json && yarn build:client && yarn build:server && yarn copy-files"
