@@ -7,7 +7,6 @@ import serveStatic from "serve-static";
 import { createServer as createViteServer } from "vite";
 import { fileURLToPath } from "url";
 import serverless from "serverless-http";
-const isTest = process.env.NODE_ENV === "test" || !!process.env.VITE_TEST_BUILD;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
