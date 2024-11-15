@@ -59,7 +59,7 @@ namespace TravelRecommendation.Server
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://127.0.0.1:8000");
+                client.BaseAddress = new Uri("http://host.docker.internal:8000");
                 var request = new RecommendationRequest { Prompt = prompt };
                 var json = JsonSerializer.Serialize(request);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");

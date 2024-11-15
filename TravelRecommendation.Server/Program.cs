@@ -38,7 +38,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseAuthorization();
 
@@ -46,40 +49,4 @@ app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
 
-StartMongoDB();
-
 app.Run();
-
-void StartMongoDB()
-{
-    Debug.WriteLine("Starting MongoDB...");
-    var processStartInfo = new ProcessStartInfo
-    {
-        FileName = "cmd.exe",
-        Arguments = "/c mongod --config D:\\Programming\\MongoDB\\Server\\7.0\\bin\\mongod.cfg",
-        RedirectStandardOutput = true,
-        RedirectStandardError = true,
-        UseShellExecute = false,
-        CreateNoWindow = true
-    };
-
-    using (var process = Process.Start(processStartInfo))
-    {
-        if (process != null)
-        {
-            string output = process.StandardOutput.ReadToEnd();
-            string error = process.StandardError.ReadToEnd();
-
-            Debug.WriteLine("MongoDB Output: " + output);
-            if (!string.IsNullOrEmpty(error))
-            {
-                Debug.WriteLine("MongoDB Error: " + error);
-            }
-
-            process.WaitForExit();
-        } else
-        {
-            Debug.WriteLine("Process is null");
-        }
-    }
-}
