@@ -4,9 +4,6 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <SpaRoot>..\travelrecommendation.client</SpaRoot>
-    <SpaProxyLaunchCommand>npm run dev:server</SpaProxyLaunchCommand>
-	<SpaProxyServerUrl>https://localhost:5173</SpaProxyServerUrl>
 	<UserSecretsId>c26cad64-99e1-4e9e-ba72-01eb4024cb60</UserSecretsId>
 	<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	<OutputType>Exe</OutputType>
