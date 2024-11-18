@@ -15,7 +15,7 @@ WORKDIR /src
 # COPY ["travelrecommendation.client/nuget.config", "travelrecommendation.client/"]
 COPY ["TravelRecommendation.Server.csproj", "TravelRecommendation.Server/"]
 # COPY ["travelrecommendation.client/travelrecommendation.client.esproj", "travelrecommendation.client/"]
-RUN dotnet restore "./TravelRecommendation.Server.csproj"
+RUN dotnet restore "./TravelRecommendation.Server/TravelRecommendation.Server.csproj"
 COPY . .
 WORKDIR "/src/TravelRecommendation.Server"
 RUN dotnet build "./TravelRecommendation.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
