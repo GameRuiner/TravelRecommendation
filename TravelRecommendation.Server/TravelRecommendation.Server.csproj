@@ -9,6 +9,7 @@
 	<SpaProxyServerUrl>https://localhost:5173</SpaProxyServerUrl>
 	<UserSecretsId>c26cad64-99e1-4e9e-ba72-01eb4024cb60</UserSecretsId>
 	<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	<OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
