@@ -12,7 +12,7 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-["../travelrecommendation.client/nuget.config", "travelrecommendation.client/"]
+COPY ["../travelrecommendation.client/nuget.config", "travelrecommendation.client/"]
 COPY ["TravelRecommendation.Server.csproj", "TravelRecommendation.Server/"]
 COPY ["../travelrecommendation.client/travelrecommendation.client.esproj", "travelrecommendation.client/"]
 RUN dotnet restore "./TravelRecommendation.Server/TravelRecommendation.Server.csproj"
