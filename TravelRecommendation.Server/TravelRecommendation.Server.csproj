@@ -21,9 +21,5 @@
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
-	
-	<ItemGroup>
-		<Compile Include="Program.cs" />
-	</ItemGroup>
 
 </Project>

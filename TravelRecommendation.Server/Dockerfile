@@ -12,12 +12,9 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-# COPY ["../travelrecommendation.client/nuget.config", "travelrecommendation.client/"]
-COPY ["TravelRecommendation.Server.csproj", "TravelRecommendation.Server/"]
-# COPY ["../travelrecommendation.client/travelrecommendation.client.esproj", "travelrecommendation.client/"]
-RUN dotnet restore "./TravelRecommendation.Server/TravelRecommendation.Server.csproj"
+COPY ["TravelRecommendation.Server.csproj", "./"]
+RUN dotnet restore "./TravelRecommendation.Server.csproj"
 COPY . .
-WORKDIR "/src/TravelRecommendation.Server"
 RUN dotnet build "./TravelRecommendation.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
