@@ -1,11 +1,14 @@
 import { fileURLToPath, URL } from 'node:url';
 
 import { defineConfig } from 'vite';
+import dotenv from 'dotenv';
 import plugin from '@vitejs/plugin-react';
 import fs from 'fs';
 import path from 'path';
 import child_process from 'child_process';
 import { env } from 'process';
+
+dotenv.config();
 
 const baseFolder =
     env.APPDATA !== undefined && env.APPDATA !== ''
@@ -30,7 +33,7 @@ if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
     }
 }
 const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
-    env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'http://localhost:32769';
+    env.VITE_ASPNETCORE_URLS ? env.VITE_ASPNETCORE_URLS.split(';')[0] : 'http://localhost:32769';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -44,6 +47,7 @@ export default defineConfig({
         proxy: {
             '^/hotel': {
                 target,
+                changeOrigin: true,
                 secure: false,
             }
         },
