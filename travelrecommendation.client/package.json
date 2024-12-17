@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@netlify/functions": "^2.8.2",
+    "cross-env": "^7.0.3",
     "express": "^4.21.1",
     "ignore-styles": "^5.0.1",
     "lightningcss": "^1.28.1",
