@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelRecommendation.Server", "TravelRecommendation.Server\TravelRecommendation.Server.csproj", "{695ADA03-2C15-4DA2-BB7B-0D69DC1404CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelRecommendation.Server", "TravelRecommendation.Server\TravelRecommendation.Server.csproj", "{695ADA03-2C15-4DA2-BB7B-0D69DC1404CD}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "travelrecommendation.client", "travelrecommendation.client\travelrecommendation.client.esproj", "{CFF285C4-A572-4930-BEAA-152B7F2B0C04}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8D22801D-ACE9-403D-9B89-843DF51AFF18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{CFF285C4-A572-4930-BEAA-152B7F2B0C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFF285C4-A572-4930-BEAA-152B7F2B0C04}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CFF285C4-A572-4930-BEAA-152B7F2B0C04}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{8D22801D-ACE9-403D-9B89-843DF51AFF18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D22801D-ACE9-403D-9B89-843DF51AFF18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D22801D-ACE9-403D-9B89-843DF51AFF18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D22801D-ACE9-403D-9B89-843DF51AFF18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

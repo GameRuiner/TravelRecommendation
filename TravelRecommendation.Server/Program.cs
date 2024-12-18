@@ -5,6 +5,7 @@ using TravelRecommendation.Server;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection(nameof(MongoDBSettings)));
+builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection(nameof(ApiSettings)));
 
 builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 {

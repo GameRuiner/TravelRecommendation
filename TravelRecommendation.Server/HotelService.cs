@@ -4,6 +4,7 @@ using MongoDB.Bson;
 using System.Text.Json;
 using System.Text;
 using System.Text.Json.Serialization;
+using System.Diagnostics;
 
 
 namespace TravelRecommendation.Server
@@ -38,14 +39,16 @@ namespace TravelRecommendation.Server
         private readonly IMongoCollection<Photos> _photosCollection;
         private readonly IMongoCollection<HotelRating> _ratingsCollection;
         private readonly IMongoCollection<Prompt> _promptsCollection;
+        private readonly string _baseAddress;
 
-        public HotelService(IOptions<MongoDBSettings> mongoDBSettings, IMongoClient mongoClient)
+        public HotelService(IOptions<MongoDBSettings> mongoDBSettings, IOptions<ApiSettings> apiSettings, IMongoClient mongoClient)
         {
             var database = mongoClient.GetDatabase(mongoDBSettings.Value.DatabaseName);
             _hotelsCollection = database.GetCollection<Hotel>(mongoDBSettings.Value.HotelsCollection);
             _photosCollection = database.GetCollection<Photos>(mongoDBSettings.Value.PhotosCollection);
             _ratingsCollection = database.GetCollection<HotelRating>(mongoDBSettings.Value.RatingsCollection);
             _promptsCollection = database.GetCollection<Prompt>(mongoDBSettings.Value.PromptsCollection);
+            _baseAddress = apiSettings.Value.BasePath;
         }
 
         public async Task<List<HotelDto>> FetchRecommendedHotelsWithPhotos(string prompt, int limit)
@@ -59,10 +62,13 @@ namespace TravelRecommendation.Server
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://host.docker.internal:8000");
+                client.BaseAddress = new Uri(_baseAddress);
                 var request = new RecommendationRequest { Prompt = prompt };
                 var json = JsonSerializer.Serialize(request);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
+                string token = Environment.GetEnvironmentVariable("BEARER_TOKEN");
+                if (string.IsNullOrEmpty(token)) throw new Exception("BEARER_TOKEN is not set");
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 var response = await client.PostAsync("/recommendations", content);
                 response.EnsureSuccessStatusCode();
                 var responseBody = await response.Content.ReadAsStringAsync();

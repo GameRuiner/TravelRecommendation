@@ -365,4 +365,5 @@ FodyWeavers.xsd
 
 # Local Netlify folder
 .netlify
+
 /TravelRecommendation.Server/.env

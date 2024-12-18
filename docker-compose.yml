@@ -1,0 +1,7 @@
+services:
+  travelrecommendation.server:
+    image: ${DOCKER_REGISTRY-}travelrecommendationserver
+    env_file: "TravelRecommendation.Server/.env"
+    build:
+      context: .
+      dockerfile: TravelRecommendation.Server/Dockerfile

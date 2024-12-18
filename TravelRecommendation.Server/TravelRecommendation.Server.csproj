@@ -7,6 +7,7 @@
 	<UserSecretsId>c26cad64-99e1-4e9e-ba72-01eb4024cb60</UserSecretsId>
 	<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	<OutputType>Exe</OutputType>
+	<DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
