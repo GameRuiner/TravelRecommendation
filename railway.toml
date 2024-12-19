@@ -1,0 +1,3 @@
+[build]
+builder = "docker-compose"
+service = "travelrecommendation.server"

@@ -9,6 +9,11 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "travelrecommendation.client
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8D22801D-ACE9-403D-9B89-843DF51AFF18}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6CE1B997-D48A-4C71-BAEF-E79E4934CA37}"
+	ProjectSection(SolutionItems) = preProject
+		railway.toml = railway.toml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
