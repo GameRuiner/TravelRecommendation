@@ -7,13 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelRecommendation.Server
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "travelrecommendation.client", "travelrecommendation.client\travelrecommendation.client.esproj", "{CFF285C4-A572-4930-BEAA-152B7F2B0C04}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8D22801D-ACE9-403D-9B89-843DF51AFF18}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6CE1B997-D48A-4C71-BAEF-E79E4934CA37}"
-	ProjectSection(SolutionItems) = preProject
-		railway.toml = railway.toml
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,10 +23,6 @@ Global
 		{CFF285C4-A572-4930-BEAA-152B7F2B0C04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFF285C4-A572-4930-BEAA-152B7F2B0C04}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CFF285C4-A572-4930-BEAA-152B7F2B0C04}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{8D22801D-ACE9-403D-9B89-843DF51AFF18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D22801D-ACE9-403D-9B89-843DF51AFF18}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D22801D-ACE9-403D-9B89-843DF51AFF18}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D22801D-ACE9-403D-9B89-843DF51AFF18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
