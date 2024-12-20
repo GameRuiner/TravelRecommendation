@@ -7,7 +7,6 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
@@ -15,17 +14,6 @@ WORKDIR /src
 COPY ["TravelRecommendation.Server.csproj", "./"]
 RUN dotnet restore "./TravelRecommendation.Server.csproj"
 COPY . .
-
-
-# Install tools for file change detection (optional, for Linux environments)
-RUN apt-get update && apt-get install -y inotify-tools
-
-# Enable hot reload
-CMD ["dotnet", "watch", "run", "--no-launch-profile", "--urls=http://0.0.0.0:8080"]
-
-# Production build image
-FROM dev AS build
-ARG BUILD_CONFIGURATION=Release
 RUN dotnet build "./TravelRecommendation.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
@@ -37,13 +25,4 @@ RUN dotnet publish "./TravelRecommendation.Server.csproj" -c $BUILD_CONFIGURATIO
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-
-# Copy the .env file
-COPY .env /app/.env
-
-# Set environment variables directly from the .env file
-RUN export $(grep -v '^#' /app/.env | xargs -d '\n') && \
-    env | grep BEARER_TOKEN # Optional: Debugging step to verify variables
-
-# Final runtime setup
-CMD ["dotnet", "TravelRecommendation.Server.dll"]
+ENTRYPOINT ["dotnet", "TravelRecommendation.Server.dll"]
