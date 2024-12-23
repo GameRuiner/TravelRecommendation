@@ -8,9 +8,11 @@ import HotelCard, { Hotel } from './HotelCard';
 function PromptPage() {
     const [hotels, setHotels] = useState<Hotel[]>();
     const [prompt, setPrompt] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
 
     const populateHotelsData = async (prompt: string) => {
         setPrompt(prompt);
+        setLoading(true);
         const sendData = JSON.stringify({ 'prompt': prompt });
         const requestOptions: RequestInit = {
             method: 'POST',
@@ -19,9 +21,13 @@ function PromptPage() {
             },
             body: sendData,
         };
-        const response = await fetch('hotel/get', requestOptions);
-        const data = await response.json();
-        setHotels(data);
+        try {
+            const response = await fetch('hotel/get', requestOptions);
+            const data = await response.json();
+            setHotels(data);
+        } finally {
+            setLoading(false);
+        }
     }
 
     const submitPrompt = (e: FormEvent) => {
@@ -58,7 +64,12 @@ function PromptPage() {
                     </div>
                 </button>
             </form>
-            {hotels && <div className="max-w-full">
+            {loading && (
+                <div className="mt-12 flex items-center justify-center">
+                    <div className="loader"></div>
+                </div>
+            )}
+            {hotels && hotels.length > 0 && <div className="max-w-full">
                 <h2 className="bold mt-8 text-3xl">Check this out</h2>
                 <ul className="mt-6 flex flex-wrap justify-center gap-10">
                     {hotels.map(hotel =>
