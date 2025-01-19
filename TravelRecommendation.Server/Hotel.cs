@@ -53,13 +53,17 @@ namespace TravelRecommendation.Server
 
         public Image? GetHotelImage()
         {
-            var imageObj = Photos?.FirstOrDefault()?.Data?
-                .FirstOrDefault(image => image.Album == "Hotel & Grounds");
-            if (imageObj == null)
+            var albumPriority = new[]
             {
-                imageObj = Photos?.FirstOrDefault()?.Data?
-                    .FirstOrDefault(image => image.Album == "Other");
-            }
+                "Hotel & Grounds",
+                "Pool/Beach Area",
+                "Room/Suite",
+                "Other"
+            };
+            var photosData = Photos?.FirstOrDefault()?.Data;
+            var imageObj = albumPriority
+                .Select(album => photosData?.FirstOrDefault(image => image.Album == album))
+                .FirstOrDefault(image => image != null);
             return imageObj?.Images?.Large;
         }
     }
