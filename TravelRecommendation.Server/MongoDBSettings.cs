@@ -7,6 +7,7 @@
         public required string HotelsCollection { get; set; }
         public required string ReviewsCollection { get; set; }
         public required string PhotosCollection { get; set; }
+        public required string HotelsAdditionalInfoCollection { get; set; }
         public required string RatingsCollection { get; set; }
         public required string PromptsCollection { get; set; }
     }

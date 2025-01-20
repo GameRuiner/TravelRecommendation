@@ -37,6 +37,7 @@ namespace TravelRecommendation.Server
     {
         private readonly IMongoCollection<Hotel> _hotelsCollection;
         private readonly IMongoCollection<Photos> _photosCollection;
+        private readonly IMongoCollection<HotelAdditionalInfo> _hotelsAdditionalInfoCollection;
         private readonly IMongoCollection<HotelRating> _ratingsCollection;
         private readonly IMongoCollection<Prompt> _promptsCollection;
         private readonly string _baseAddress;
@@ -46,6 +47,7 @@ namespace TravelRecommendation.Server
             var database = mongoClient.GetDatabase(mongoDBSettings.Value.DatabaseName);
             _hotelsCollection = database.GetCollection<Hotel>(mongoDBSettings.Value.HotelsCollection);
             _photosCollection = database.GetCollection<Photos>(mongoDBSettings.Value.PhotosCollection);
+            _hotelsAdditionalInfoCollection = database.GetCollection<HotelAdditionalInfo>(mongoDBSettings.Value.HotelsAdditionalInfoCollection);
             _ratingsCollection = database.GetCollection<HotelRating>(mongoDBSettings.Value.RatingsCollection);
             _promptsCollection = database.GetCollection<Prompt>(mongoDBSettings.Value.PromptsCollection);
             _baseAddress = apiSettings.Value.BasePath;
@@ -106,6 +108,29 @@ namespace TravelRecommendation.Server
                     },
                     new BsonDocument
                     {
+                        { "$lookup", new BsonDocument
+                            {
+                                { "from", "hotels_additional_info" },
+                                { "localField", "location_id" },
+                                { "foreignField", "location_id" },
+                                { "as", "HotelAdditionalInfo" }
+                            }
+                        }
+                    },
+                    new BsonDocument
+                    {
+                        { "$addFields", new BsonDocument
+                            {
+                                { "hotel_class", new BsonDocument
+                                    {
+                                        { "$arrayElemAt", new BsonArray { "$HotelAdditionalInfo.hotel_class", 0 } }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    new BsonDocument
+                    {
                         { "$limit", limit }
                     }
                 };
@@ -117,7 +142,7 @@ namespace TravelRecommendation.Server
                 Name = hotel.Name,
                 Location = hotel.GetHotelLocation(),
                 Image = hotel.GetHotelImage(),
-                HotelClass = hotel.HotelClass
+                HotelClass = hotel.HotelClass,
             }).ToList();
             return projectedHotelsList;
         }
