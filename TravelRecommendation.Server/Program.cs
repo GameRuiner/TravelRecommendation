@@ -9,12 +9,9 @@ builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection(nameof(
 
 builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 {
-    var settings = builder.Configuration.GetSection("MongoDBSettings").Get<MongoDBSettings>();
-    if (settings is null)
-    {
-        throw new InvalidOperationException("MongoDBSettings is not configured correctly.");
-    }
-    return new MongoClient(connectionString: settings.ConnectionString);
+    string connectionString = Environment.GetEnvironmentVariable("MONGO_HOST");
+    if (string.IsNullOrEmpty(connectionString)) throw new Exception("MONGO_HOST is not set");
+    return new MongoClient(connectionString: connectionString);
 });
 
 builder.Services.AddControllers();
