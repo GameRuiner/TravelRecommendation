@@ -23,7 +23,7 @@
 
 [[redirects]]
   from = "/hotel/*"
-  to = "https://travelrecommendation-production.up.railway.app/hotel/:splat"
+  to = "http://13.61.32.76:8080/hotel/:splat"
   status = 200
 
 [[redirects]]
