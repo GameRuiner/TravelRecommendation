@@ -70,6 +70,8 @@ namespace TravelRecommendation.Server
 
     public class Ancestor
     {
+        [BsonElement("abbrv")]
+        public string? Abbreviation { get; set; }
         [BsonElement("level")]
         public required string Level { get; set; }
         [BsonElement("name")]
