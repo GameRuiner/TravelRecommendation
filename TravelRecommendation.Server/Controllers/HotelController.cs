@@ -48,5 +48,11 @@ namespace TravelRecommendation.Server.Controllers
             await _hotelService.RateHotelAsync(request.HotelId, request.Rating, request.Prompt);
             return Ok("Rating submitted successfully");
         }
+
+        [HttpGet("health", Name = "HealthCheck")]
+        public IActionResult HealthCheck()
+        {
+            return Ok("Server is ok");
+        }
     }
 }

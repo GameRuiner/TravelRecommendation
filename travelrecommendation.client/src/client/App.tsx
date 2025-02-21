@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 
 function App() {
-    const [isOnline, setIsOnline] = useState<boolean>(false);
+    const [isOnline, setIsOnline] = useState<boolean | null>(null);
 
     useEffect(() => {
         const checkServer = async () => {
@@ -17,6 +17,10 @@ function App() {
         }
         checkServer();
     }, [])
+    
+    if (isOnline === null) {
+        return <p>Loading...</p>
+    }
 
     return (
         <div>
