@@ -1,17 +1,17 @@
 ﻿
-import { FormEvent, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import './App.css';
 import './PromptPage.css'
 import HotelCard, { Hotel } from './HotelCard';
+import AIWidget from './AIWidget';
 
 
 function PromptPage() {
     const [hotels, setHotels] = useState<Hotel[]>();
-    const [prompt, setPrompt] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const populateHotelsData = async (prompt: string) => {
-        setPrompt(prompt);
         setLoading(true);
         const sendData = JSON.stringify({ 'prompt': prompt });
         const requestOptions: RequestInit = {
@@ -49,13 +49,19 @@ function PromptPage() {
             body: sendData,
         };
         fetch('hotel/rate', requestOptions);
+    }    
+
+    const agentSearch = (prompt: string) => {
+        if (inputRef && inputRef.current)
+            inputRef.current.value = prompt;
+        populateHotelsData(prompt);
     }
 
     return (
         <div className="container-size mt-12 flex flex-col items-center">
             <p className="bold text-8xl">Where you want to go?</p>
             <form className="prompt-container mt-12 w-full" onSubmit={(e) => submitPrompt(e)}>
-                <input className="w-full rounded-full p-6 pl-12 pr-16" name="prompt" autoComplete="off" />
+                <input className="w-full rounded-full p-6 pl-12 pr-16" name="prompt" autoComplete="off" ref={inputRef} />
                 <button className="flex h-12 w-12 items-center justify-center rounded-full p-0">
                     <div className="send-image h-8 w-8">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -79,6 +85,7 @@ function PromptPage() {
                     )}
                 </ul>
             </div>}
+            <AIWidget agentSearch={agentSearch}/>
         </div>
     );
 
