@@ -10,7 +10,7 @@ export default function AIWidget({agentSearch}:  {agentSearch : (prompt: string)
     if (widget) {
       widgetRef.current = widget;
       const dynamicVars = {
-        hotel_options: {
+        hotel_options: `{
           price_level: [ '$', '$$', '$$$', '$$$$' ],
           countries: [
             'Spain',
@@ -23,7 +23,7 @@ export default function AIWidget({agentSearch}:  {agentSearch : (prompt: string)
             'Turkiye',
             'United Arab Emirates'
           ]
-        },
+        }`,
       };
       widget.setAttribute('dynamic-variables', JSON.stringify(dynamicVars));
       widget.addEventListener('elevenlabs-convai:call', (event) => {
