@@ -53,14 +53,24 @@ namespace TravelRecommendation.Server
             _baseAddress = apiSettings.Value.BasePath;
         }
 
-        public async Task<List<HotelDto>> FetchRecommendedHotelsWithPhotos(string prompt, int limit)
+        public async Task<List<HotelDto>> FetchRecommendedHotelsWithPhotos(string prompt, object? options, int limit)
         {
-            var recommendedHotels = await GetRecommendedHotels(prompt);
+            List<HotelRecommendation> recommendedHotels;
+            if (options == null)
+            {
+                recommendedHotels = await GetSimilarHotels(prompt);
+            }
+            else
+            {
+                Debug.WriteLine(JsonSerializer.Serialize(options));
+                // TODO: add logic
+                recommendedHotels = [];
+            }
             var hotels = await GetHotelDetailsWithPhotos(recommendedHotels, limit);
             return hotels;
         }
 
-        public async Task<List<HotelRecommendation>> GetRecommendedHotels(string prompt)
+        public async Task<List<HotelRecommendation>> GetSimilarHotels(string prompt)
         {
             using (var client = new HttpClient())
             {

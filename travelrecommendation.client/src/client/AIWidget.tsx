@@ -3,6 +3,12 @@ import { useEffect, useRef } from 'react';
 export default function AIWidget({agentSearch}:  {agentSearch : (prompt: string, options: object) => void}) {
   const widgetRef = useRef<HTMLElement | null>(null);
 
+  const normalizeOptions = (options: Record<string, unknown>): Record<string, unknown[]> => (
+    Object.fromEntries(
+      Object.entries(options).map(([key, value]) => [key, Array.isArray(value) ? value : [value]])
+    ));
+  
+
   useEffect(() => {
     const widget = document.querySelector(
       'elevenlabs-convai'
@@ -29,8 +35,8 @@ export default function AIWidget({agentSearch}:  {agentSearch : (prompt: string,
       widget.addEventListener('elevenlabs-convai:call', (event) => {
         const customEvent = event as CustomEvent;
         customEvent.detail.config.clientTools = {
-          createPrompt: async ({ prompt, options }: { prompt: string, options: object }) => {
-            agentSearch(prompt, options);
+          createPrompt: async ({ prompt, options }: { prompt: string, options: Record<string, unknown> }) => {
+            agentSearch(prompt, normalizeOptions(options));
             return 'Showed hotels';
           },
         };

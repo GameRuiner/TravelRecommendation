@@ -12,6 +12,7 @@ namespace TravelRecommendation.Server.Controllers
     public class GetHotelRequest
     {
         public required string Prompt { get; set; }
+        public object? Options { get; set; }
     }
 
     [ApiController]
@@ -34,7 +35,7 @@ namespace TravelRecommendation.Server.Controllers
             {
                 return BadRequest("Invalid request data");
             }
-            var hotels = await _hotelService.FetchRecommendedHotelsWithPhotos(request.Prompt, 3);
+            var hotels = await _hotelService.FetchRecommendedHotelsWithPhotos(request.Prompt, request.Options, 3);
             return Ok(hotels);
         }
 
