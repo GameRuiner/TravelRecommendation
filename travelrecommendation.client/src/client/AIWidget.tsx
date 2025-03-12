@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-export default function AIWidget({agentSearch}:  {agentSearch : (prompt: string) => void}) {
+export default function AIWidget({agentSearch}:  {agentSearch : (prompt: string, options: object) => void}) {
   const widgetRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -30,8 +30,7 @@ export default function AIWidget({agentSearch}:  {agentSearch : (prompt: string)
         const customEvent = event as CustomEvent;
         customEvent.detail.config.clientTools = {
           createPrompt: async ({ prompt, options }: { prompt: string, options: object }) => {
-            console.log(options)
-            agentSearch(prompt);
+            agentSearch(prompt, options);
             return 'Showed hotels';
           },
         };

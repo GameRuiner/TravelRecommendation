@@ -11,9 +11,10 @@ function PromptPage() {
     const [loading, setLoading] = useState<boolean>(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const populateHotelsData = async (prompt: string) => {
+    const populateHotelsData = async (prompt: string, options: object | null) => {
         setLoading(true);
-        const sendData = JSON.stringify({ 'prompt': prompt });
+        const sendData = JSON.stringify({ 'prompt': prompt, options: options });
+
         const requestOptions: RequestInit = {
             method: 'POST',
             headers: {
@@ -36,7 +37,7 @@ function PromptPage() {
             prompt: { value: string };
         };
         const prompt = target.prompt.value;
-        populateHotelsData(prompt)
+        populateHotelsData(prompt, null)
     }
 
     const sendRating = (rating: boolean, hotelId: string) => {
@@ -51,10 +52,10 @@ function PromptPage() {
         fetch('hotel/rate', requestOptions);
     }    
 
-    const agentSearch = (prompt: string) => {
+    const agentSearch = (prompt: string, options: object) => {
         if (inputRef && inputRef.current)
             inputRef.current.value = prompt;
-        populateHotelsData(prompt);
+        populateHotelsData(prompt, options);
     }
 
     return (
