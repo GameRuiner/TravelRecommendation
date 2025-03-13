@@ -11,9 +11,10 @@ function PromptPage() {
     const [loading, setLoading] = useState<boolean>(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const populateHotelsData = async (prompt: string) => {
+    const populateHotelsData = async (prompt: string, options: object | null) => {
         setLoading(true);
-        const sendData = JSON.stringify({ 'prompt': prompt });
+        const sendData = JSON.stringify({ 'prompt': prompt, options: options });
+
         const requestOptions: RequestInit = {
             method: 'POST',
             headers: {
@@ -36,7 +37,7 @@ function PromptPage() {
             prompt: { value: string };
         };
         const prompt = target.prompt.value;
-        populateHotelsData(prompt)
+        populateHotelsData(prompt, null)
     }
 
     const sendRating = (rating: boolean, hotelId: string) => {
@@ -51,15 +52,15 @@ function PromptPage() {
         fetch('hotel/rate', requestOptions);
     }    
 
-    const agentSearch = (prompt: string) => {
+    const agentSearch = (prompt: string, options: object) => {
         if (inputRef && inputRef.current)
             inputRef.current.value = prompt;
-        populateHotelsData(prompt);
+        populateHotelsData(prompt, options);
     }
 
     return (
         <div className="container-size mt-12 flex flex-col items-center">
-            <p className="bold text-8xl">Where you want to go?</p>
+            <p className="bold text-6xl">What does Your perfect stay look like?</p>
             <form className="prompt-container mt-12 w-full" onSubmit={(e) => submitPrompt(e)}>
                 <input className="w-full rounded-full p-6 pl-12 pr-16" name="prompt" autoComplete="off" ref={inputRef} />
                 <button className="flex h-12 w-12 items-center justify-center rounded-full p-0">
