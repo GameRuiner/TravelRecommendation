@@ -33,6 +33,13 @@ namespace TravelRecommendation.Server
         [JsonPropertyName("locationId")]
         public required string LocationId { get; set; }
     }
+    public class Options
+    {
+        [JsonPropertyName("countries")]
+        public List<string> Countries { get; set; } = [];
+        [JsonPropertyName("price_level")]
+        public List<string> PriceLevel { get; set; } = [];
+    }
     public class HotelService
     {
         private readonly IMongoCollection<Hotel> _hotelsCollection;
@@ -53,7 +60,7 @@ namespace TravelRecommendation.Server
             _baseAddress = apiSettings.Value.BasePath;
         }
 
-        public async Task<List<HotelDto>> FetchRecommendedHotelsWithPhotos(string prompt, object? options, int limit)
+        public async Task<List<HotelDto>> FetchRecommendedHotelsWithPhotos(string prompt, Options? options, int limit)
         {
             List<HotelRecommendation> recommendedHotels;
             if (options == null)
@@ -62,9 +69,18 @@ namespace TravelRecommendation.Server
             }
             else
             {
-                Debug.WriteLine(JsonSerializer.Serialize(options));
-                // TODO: add logic
-                recommendedHotels = [];
+                var matchingDocuments = await _hotelsCollection
+                    .Find(h => h.Ancestors.Any(a => a.Level == "Country" && options.Countries.Contains(a.Name)) &&
+                               options.PriceLevel.Contains(h.PriceLevel))
+                    .SortByDescending(h => h.Rating)
+                    .Limit(limit)
+                    .ToListAsync();
+                recommendedHotels = matchingDocuments
+                    .Select(h => new HotelRecommendation
+                    {
+                        LocationId = h.LocationId
+                    })
+                    .ToList();
             }
             var hotels = await GetHotelDetailsWithPhotos(recommendedHotels, limit);
             return hotels;

@@ -5,7 +5,8 @@ export default function AIWidget({agentSearch}:  {agentSearch : (prompt: string,
 
   const normalizeOptions = (options: Record<string, unknown>): Record<string, unknown[]> => (
     Object.fromEntries(
-      Object.entries(options).map(([key, value]) => [key, Array.isArray(value) ? value : [value]])
+      Object.entries(options)
+            .map(([key, value]) => [key, Array.isArray(value) ? value : (value as string).split(", ")])
     ));
   
 

@@ -12,7 +12,7 @@ namespace TravelRecommendation.Server.Controllers
     public class GetHotelRequest
     {
         public required string Prompt { get; set; }
-        public object? Options { get; set; }
+        public Options? Options { get; set; }
     }
 
     [ApiController]
