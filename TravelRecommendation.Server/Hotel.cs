@@ -22,6 +22,10 @@ namespace TravelRecommendation.Server
         public List<Photos>? Photos { get; set; }
         [BsonElement("hotel_class")]
         public float? HotelClass { get; set; }
+        [BsonElement("price_level")]
+        public string PriceLevel { get; set; }
+        [BsonElement("rating")]
+        public string Rating { get; set; }
 
         public string GetHotelLocation()
         {
