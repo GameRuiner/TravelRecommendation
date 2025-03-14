@@ -23,7 +23,7 @@
 
 [[redirects]]
   from = "/hotel/*"
-  to = "http://13.61.32.76:8080/hotel/:splat"
+  to = "http://16.170.202.67:8080/hotel/:splat"
   status = 200
 
 [[redirects]]
