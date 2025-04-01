@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <title>Hotels</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta content="width=device-width,initial-scale=1,maximum-scale=10,minimum-scale=.25,user-scalable=yes"
-          name="viewport" />
+        name="viewport" />
     <meta content="text/html; charset=utf-8" http-equiv="content-type" />
     <!--head-->
     <!-- ### Manifest and icons ### -->
@@ -13,6 +14,11 @@
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="application-name" content="App" />
+    <meta property="og:image" content="https://hotelmatcher.netlify.app/og-image.png" />
+    <meta property="og:title" content="Hotels" />
+    <meta property="og:description" content="Find the best hotels for your trip!" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hotelmatcher.netlify.app" />
     <link rel="shortcut icon" type="image/svg+xml" href="/palm.svg" />
     <!--<link rel="shortcut icon" href="/favicon.ico" />-->
     <!--<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -23,8 +29,10 @@
     <elevenlabs-convai agent-id="BdRkywPBNz2Xx8zYkI3X"></elevenlabs-convai>
     <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 </head>
+
 <body>
     <div id="root"><!--app-html--></div>
     <script type="module" src="/src/client/entry-client.tsx"></script>
 </body>
+
 </html>
