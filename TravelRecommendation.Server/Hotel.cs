@@ -10,6 +10,8 @@ namespace TravelRecommendation.Server
         public ObjectId Id { get; set; }
         [BsonElement("location_id")]
         public required string LocationId { get; set; }
+        [BsonElement("amenities")]
+        public required List<string> Amenities { get; set; }
         [BsonElement("name")]
         public required string Name { get; set; }
         [BsonElement("ancestors")]

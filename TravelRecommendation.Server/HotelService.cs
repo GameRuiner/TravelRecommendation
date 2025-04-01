@@ -39,6 +39,8 @@ namespace TravelRecommendation.Server
         public List<string> Countries { get; set; } = [];
         [JsonPropertyName("price_level")]
         public List<string> PriceLevel { get; set; } = [];
+        [JsonPropertyName("amenities")]
+        public List<string> Amenities { get; set; } = [];
     }
     public class HotelService
     {
@@ -71,7 +73,8 @@ namespace TravelRecommendation.Server
             {
                 var matchingDocuments = await _hotelsCollection
                     .Find(h => h.Ancestors.Any(a => a.Level == "Country" && options.Countries.Contains(a.Name)) &&
-                               options.PriceLevel.Contains(h.PriceLevel))
+                               options.PriceLevel.Contains(h.PriceLevel) && 
+                               options.Amenities.All(amenity => h.Amenities.Contains(amenity)))
                     .SortByDescending(h => h.Rating)
                     .Limit(limit)
                     .ToListAsync();
@@ -109,7 +112,7 @@ namespace TravelRecommendation.Server
 
         public async Task<List<HotelDto>> GetHotelDetailsWithPhotos(List<HotelRecommendation> hotels, int limit)
         {
-            List<string> hotelIds = new List<string>();
+            List<string> hotelIds = [];
             foreach (var hotel in hotels)
             {
                 hotelIds.Add(hotel.LocationId);
