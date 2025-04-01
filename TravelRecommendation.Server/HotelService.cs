@@ -220,7 +220,8 @@ namespace TravelRecommendation.Server
                 hotel_options = new
                 {
                     price_level,
-                    countries
+                    countries,
+                    amenities = new string[] {"Non-smoking rooms", "Air conditioning", "Free Wifi", "Baggage Storage", "Safe", "24-Hour Front Desk", "Flatscreen TV", "Laundry Service", "Restaurant", "Breakfast Buffet"}
                 }
             };
         }

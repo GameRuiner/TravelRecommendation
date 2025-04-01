@@ -38,15 +38,8 @@ export default function AIWidget({ agentSearch }: { agentSearch: (prompt: string
       });
     }
     if (widget && !isWidgetInit.current) {
-      console.log("init widget")
       isWidgetInit.current = true;
       initWidget(widget)
-      console.log(normalizeOptions({
-        "countries": ["Japan,Greece,Spain"],
-        "price_level": [
-            "$$"
-        ]
-    }))
     }
   }, [agentSearch]);
 
