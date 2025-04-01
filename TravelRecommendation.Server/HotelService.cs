@@ -94,7 +94,7 @@ namespace TravelRecommendation.Server
                 var request = new RecommendationRequest { Prompt = prompt };
                 var json = JsonSerializer.Serialize(request);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                string token = Environment.GetEnvironmentVariable("BEARER_TOKEN");
+                string? token = Environment.GetEnvironmentVariable("BEARER_TOKEN");
                 if (string.IsNullOrEmpty(token)) throw new Exception("BEARER_TOKEN is not set");
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 var response = await client.PostAsync("/recommendations", content);
@@ -201,6 +201,28 @@ namespace TravelRecommendation.Server
                 CreatedAt = DateTime.UtcNow,
             };
             await _ratingsCollection.InsertOneAsync(hotelRating);
+        }
+
+        public async Task<object> GetHotelOptions()
+        {
+            var countriesBson = await _hotelsCollection.Aggregate()
+                .Unwind("ancestors")
+                .Match(Builders<BsonDocument>.Filter.Eq("ancestors.level", "Country")) 
+                .Group(new BsonDocument { { "_id", "$ancestors.name" } })
+                .Project<BsonDocument>(new BsonDocument { { "name", "$_id" } })
+                .ToListAsync();
+            var countries = countriesBson.Select(c => c["name"].AsString).ToList();
+            var price_level = await _hotelsCollection
+                .Distinct<string>("price_level", new BsonDocument())
+                .ToListAsync();
+            return new
+            {
+                hotel_options = new
+                {
+                    price_level,
+                    countries
+                }
+            };
         }
     }
 

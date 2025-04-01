@@ -55,5 +55,12 @@ namespace TravelRecommendation.Server.Controllers
         {
             return Ok("Server is ok");
         }
+
+        [HttpGet("hotel_options", Name = "HotelOptions")]
+        public async Task<IActionResult> HotelOptions()
+        {
+            var options = await _hotelService.GetHotelOptions();
+            return Ok(options);
+        }
     }
 }

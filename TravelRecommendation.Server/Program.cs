@@ -9,7 +9,7 @@ builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection(nameof(
 
 builder.Services.AddSingleton<IMongoClient>(serviceProvider =>
 {
-    string connectionString = Environment.GetEnvironmentVariable("MONGO_HOST");
+    string? connectionString = Environment.GetEnvironmentVariable("MONGO_HOST");
     if (string.IsNullOrEmpty(connectionString)) throw new Exception("MONGO_HOST is not set");
     return new MongoClient(connectionString: connectionString);
 });
